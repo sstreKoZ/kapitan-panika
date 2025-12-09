@@ -3,7 +3,7 @@ index.html
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>Капитан Паника — Рандомайзер IP-адресов</title>
+  <title>Капитан Паника — IP-прыжки по планете</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     * {
@@ -53,11 +53,6 @@ index.html
         0 0 40px rgba(255, 255, 255, 0.05);
     }
 
-    .logo span {
-      opacity: 0.6;
-      font-weight: 500;
-    }
-
     .tagline {
       font-size: 12px;
       opacity: 0.7;
@@ -68,10 +63,10 @@ index.html
       display: grid;
       grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
       gap: 32px;
-      align-items: center;
+      align-items: flex-start;
     }
 
-    /* Левая часть (текст + кнопка) */
+    /* Левая часть */
     .hero-text-title {
       font-size: 34px;
       line-height: 1.05;
@@ -90,7 +85,7 @@ index.html
     .hero-text-subtitle {
       font-size: 15px;
       opacity: 0.78;
-      max-width: 360px;
+      max-width: 380px;
       margin-bottom: 20px;
     }
 
@@ -120,21 +115,29 @@ index.html
       flex-wrap: wrap;
       gap: 12px;
       align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .btn-main,
+    .btn-ghost {
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease, background 0.12s ease, color 0.12s ease;
     }
 
     .btn-main {
-      border: none;
-      cursor: pointer;
-      border-radius: 999px;
-      padding: 10px 20px;
-      font-size: 14px;
-      font-weight: 600;
       background: #fff;
       color: #000;
+      font-weight: 600;
       box-shadow:
         0 0 24px rgba(255, 255, 255, 0.45),
         0 0 70px rgba(255, 255, 255, 0.16);
-      transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
     }
 
     .btn-main:hover {
@@ -144,12 +147,65 @@ index.html
         0 0 90px rgba(255, 255, 255, 0.3);
     }
 
+    .btn-ghost {
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      opacity: 0.85;
+    }
+
+    .btn-ghost:hover {
+      opacity: 1;
+      transform: translateY(-1px);
+      box-shadow:
+        0 0 18px rgba(255, 255, 255, 0.4),
+        0 0 50px rgba(255, 255, 255, 0.16);
+    }
+
     .hint-text {
       font-size: 11px;
       opacity: 0.65;
     }
 
-    /* Правая часть (планета + IP) */
+    .city-search {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .city-search-label {
+      font-size: 12px;
+      opacity: 0.75;
+    }
+
+    .city-search-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .city-input {
+      flex: 1;
+      min-width: 180px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.03);
+      padding: 8px 12px;
+      font-size: 14px;
+      color: #fff;
+      outline: none;
+      box-shadow:
+        0 0 16px rgba(255, 255, 255, 0.14),
+        0 0 40px rgba(255, 255, 255, 0.05);
+    }
+
+    .city-input::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Правая часть: панель космоса */
     .space-panel {
       border-radius: 24px;
       border: 1px solid rgba(255, 255, 255, 0.18);
@@ -188,8 +244,8 @@ index.html
     }
 
     .planet-orbit {
-      width: 190px;
-      height: 190px;
+      width: 200px;
+      height: 200px;
       border-radius: 50%;
       border: 1px solid rgba(255, 255, 255, 0.14);
       display: flex;
@@ -198,49 +254,64 @@ index.html
       box-shadow:
         0 0 40px rgba(255, 255, 255, 0.18),
         0 0 90px rgba(255, 255, 255, 0.05);
+      position: relative;
+    }
+
+    .planet-orbit::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border-radius: 50%;
+      border: 1px dashed rgba(255, 255, 255, 0.18);
+      opacity: 0.7;
     }
 
     .planet {
-      width: 130px;
-      height: 130px;
+      width: 135px;
+      height: 135px;
       border-radius: 50%;
-      background:
-        radial-gradient(circle at 30% 20%, #ffffff 0, #000 55%) ;
-      border: 2px solid #fff;
       position: relative;
+      overflow: hidden;
+      border: 2px solid #fff;
       box-shadow:
         0 0 25px rgba(255, 255, 255, 0.6),
         0 0 60px rgba(255, 255, 255, 0.3);
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
+      animation: planetIdle 16s linear infinite;
     }
 
-    .planet::before {
-      content: "";
+    .planet-layer {
       position: absolute;
-      width: 160%;
-      height: 2px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.5);
-      transform: rotate(-18deg);
-      box-shadow:
-        0 0 10px rgba(255, 255, 255, 0.5),
-        0 0 25px rgba(255, 255, 255, 0.3);
+      inset: 0;
+      border-radius: 50%;
+      pointer-events: none;
     }
 
-    .planet::after {
-      content: "";
-      position: absolute;
-      width: 190%;
-      height: 2px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.25);
-      transform: rotate(18deg);
-      box-shadow:
-        0 0 16px rgba(255, 255, 255, 0.4),
-        0 0 30px rgba(255, 255, 255, 0.15);
+    .planet-layer--core {
+      background:
+        radial-gradient(circle at 30% 20%, #ffffff 0, #000 60%);
+      animation: planetGlow 5s ease-in-out infinite alternate;
+    }
+
+    .planet-layer--continents {
+      background:
+        radial-gradient(circle at 20% 30%, rgba(0, 0, 0, 0.8) 0, transparent 40%),
+        radial-gradient(circle at 70% 40%, rgba(0, 0, 0, 0.78) 0, transparent 45%),
+        radial-gradient(circle at 40% 75%, rgba(0, 0, 0, 0.85) 0, transparent 40%);
+      mix-blend-mode: multiply;
+      opacity: 0.95;
+      animation: continentsDrift 24s linear infinite;
+    }
+
+    .planet-layer--grid {
+      background-image:
+        radial-gradient(circle at 50% 50%, transparent 0, transparent 46%, rgba(255, 255, 255, 0.45) 48%, transparent 50%),
+        radial-gradient(circle at 50% 50%, transparent 0, transparent 78%, rgba(255, 255, 255, 0.2) 80%, transparent 82%);
+      opacity: 0.9;
+      mix-blend-mode: screen;
+      animation: gridPulse 7s ease-in-out infinite alternate;
     }
 
     .planet-label {
@@ -255,25 +326,38 @@ index.html
       box-shadow:
         0 0 10px rgba(255, 255, 255, 0.5),
         0 0 24px rgba(255, 255, 255, 0.25);
+      z-index: 2;
     }
 
     .planet-spin {
-      animation: planetSpin 1.3s ease-out;
+      animation: planetJump 1.3s ease-out;
     }
 
-    @keyframes planetSpin {
-      0% {
-        transform: rotate(0deg) translateX(0);
-      }
-      40% {
-        transform: rotate(160deg) translateX(8px);
-      }
-      80% {
-        transform: rotate(340deg) translateX(-3px);
-      }
-      100% {
-        transform: rotate(360deg) translateX(0);
-      }
+    @keyframes planetIdle {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes planetJump {
+      0% { transform: rotate(0deg) translateX(0); }
+      40% { transform: rotate(200deg) translateX(8px); }
+      80% { transform: rotate(380deg) translateX(-3px); }
+      100% { transform: rotate(420deg) translateX(0); }
+    }
+
+    @keyframes planetGlow {
+      0% { box-shadow: 0 0 24px rgba(255, 255, 255, 0.4), 0 0 60px rgba(255, 255, 255, 0.18); }
+      100% { box-shadow: 0 0 40px rgba(255, 255, 255, 0.7), 0 0 90px rgba(255, 255, 255, 0.3); }
+    }
+
+    @keyframes continentsDrift {
+      0% { transform: translateX(0) rotate(0deg); }
+      100% { transform: translateX(-12px) rotate(360deg); }
+    }
+
+    @keyframes gridPulse {
+      0% { opacity: 0.65; }
+      100% { opacity: 1; }
     }
 
     .space-info {
@@ -300,6 +384,27 @@ index.html
       box-shadow:
         0 0 20px rgba(255, 255, 255, 0.25),
         0 0 50px rgba(255, 255, 255, 0.09);
+    }
+
+    .ip-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+
+    .ip-copy {
+      font-size: 11px;
+      border-radius: 999px;
+      padding: 4px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      background: rgba(255, 255, 255, 0.03);
+      cursor: pointer;
+      opacity: 0.85;
+    }
+
+    .ip-copy:hover {
+      opacity: 1;
     }
 
     .place-name {
@@ -372,14 +477,14 @@ index.html
     }
 
     .result-media {
-      border-radius: 14px;
+      border-radius: 18px;
       overflow: hidden;
       border: 1px solid rgba(255, 255, 255, 0.17);
       box-shadow:
         0 0 26px rgba(255, 255, 255, 0.35),
         0 0 70px rgba(255, 255, 255, 0.1);
       background: #000;
-      min-height: 160px;
+      min-height: 180px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -390,7 +495,7 @@ index.html
       height: 100%;
       max-height: 260px;
       object-fit: cover;
-      filter: grayscale(100%);
+      border-radius: 18px;
     }
 
     .result-placeholder {
@@ -398,6 +503,49 @@ index.html
       opacity: 0.65;
       padding: 14px;
       text-align: center;
+    }
+
+    /* Журнал прыжков */
+    .history-section {
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      padding: 14px 14px 12px;
+      background: radial-gradient(circle at 0 100%, rgba(255, 255, 255, 0.1), transparent 50%),
+                  #000;
+      box-shadow:
+        0 0 32px rgba(255, 255, 255, 0.15),
+        0 0 70px rgba(255, 255, 255, 0.04);
+    }
+
+    .history-header {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      opacity: 0.75;
+      margin-bottom: 6px;
+    }
+
+    .history-list {
+      list-style: none;
+      font-size: 12px;
+      display: grid;
+      gap: 4px;
+    }
+
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      opacity: 0.85;
+    }
+
+    .history-item span:first-child {
+      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      letter-spacing: 0.08em;
+    }
+
+    .history-empty {
+      opacity: 0.6;
     }
 
     footer {
@@ -441,13 +589,13 @@ index.html
       }
 
       .planet-orbit {
-        width: 160px;
-        height: 160px;
+        width: 170px;
+        height: 170px;
       }
 
       .planet {
-        width: 110px;
-        height: 110px;
+        width: 115px;
+        height: 115px;
       }
     }
   </style>
@@ -457,8 +605,8 @@ index.html
     <header>
       <div class="logo">Капитан&nbsp;Паника</div>
       <div class="tagline">
-        Режим: чёрно-белый космос.<br />
-        Рандомайзер IP-адресов для любопытных.
+        Чёрно-белый космос, мягкое свечение и реальные IP-адреса.<br />
+        Нажми кнопку — и мы прыгаем в новую точку планеты.
       </div>
     </header>
 
@@ -469,19 +617,35 @@ index.html
           Прыжок в случайную точку сети.
         </div>
         <p class="hero-text-subtitle">
-          Нажми кнопку — и «Капитан Паника» выберет случайный IP-адрес и место на планете,
-          расскажет, что это за локация, и покажет фото.
+          «Капитан Паника» выбирает реальный IP-адрес, город на карте и показывает,
+          чем это место живёт. А ещё ты можешь вписать любой город сам.
         </p>
 
         <div class="hero-mini">
           <div class="pill">Только чёрный и белый</div>
-          <div class="pill">Минимализм + мягкое свечение</div>
+          <div class="pill">Мягкое неоновое свечение</div>
           <div class="pill">Рандомайзер IP-адресов</div>
         </div>
 
         <div class="controls">
           <button class="btn-main" id="generateBtn">Получить случайный IP</button>
-          <span class="hint-text">Новый прыжок — новый адрес и новая история.</span>
+          <span class="hint-text">Новый прыжок — новый адрес, город и забавные факты.</span>
+        </div>
+
+        <div class="city-search">
+          <div class="city-search-label">Или впиши название города, куда хочет прыгнуть «Капитан Паника»:</div>
+          <div class="city-search-row">
+            <input
+              id="cityInput"
+              class="city-input"
+              type="text"
+              placeholder="Например: Токио, Париж, Берлин..."
+            />
+            <button class="btn-ghost" id="citySearchBtn">Найти город</button>
+          </div>
+          <div class="hint-text">
+            Если город есть в базе — покажем реальные данные и IP. Если нет — сгенерируем атмосферную карточку.
+          </div>
         </div>
       </section>
 
@@ -495,7 +659,10 @@ index.html
           <div class="planet-wrap">
             <div class="planet-orbit">
               <div class="planet" id="planet">
-                <div class="planet-label">PANIC • 01</div>
+                <div class="planet-layer planet-layer--core"></div>
+                <div class="planet-layer planet-layer--continents"></div>
+                <div class="planet-layer planet-layer--grid"></div>
+                <div class="planet-label" id="planetLabel">PANIC • 01</div>
               </div>
             </div>
           </div>
@@ -504,9 +671,14 @@ index.html
             <div class="label">Текущий IP-адрес</div>
             <div class="ip-value" id="ipValue">0.0.0.0</div>
 
+            <div class="ip-actions">
+              <button class="ip-copy" id="copyIpBtn">Скопировать IP</button>
+              <span class="hint-text" id="copyHint">IP пока не выбран</span>
+            </div>
+
             <div class="label" style="margin-top:10px;">Местоположение</div>
             <div class="place-name" id="placeName">Адрес ещё не выбран</div>
-            <div class="coords" id="placeCoords">Нажми «Получить случайный IP»</div>
+            <div class="coords" id="placeCoords">Нажми «Получить случайный IP» или введи город.</div>
 
             <div class="status">
               Статус прыжка: <span id="statusText">ожидание запуска</span>
@@ -514,102 +686,181 @@ index.html
           </div>
         </div>
       </section>
-
-      <section class="result-section" id="resultSection">
-        <div class="result-text">
-          <h2 id="resultTitle">Точка назначения не выбрана</h2>
-          <p id="resultDescription">
-            Как только ты запросишь случайный IP-адрес, здесь появится краткая
-            сводка по месту: город, континент и что в нём необычного.
-          </p>
-          <div class="facts-title">Интересные факты</div>
-          <ul class="facts-list" id="placeFacts">
-            <li>Нажми кнопку сверху, чтобы начать «паническое» путешествие.</li>
-          </ul>
-        </div>
-
-        <div class="result-media" id="mediaBox">
-          <div class="result-placeholder" id="mediaPlaceholder">
-            Фотография точки назначения появится здесь после выбора IP-адреса.
-          </div>
-          <img id="placeImage" src="" alt="" style="display:none;" />
-        </div>
-      </section>
     </main>
 
+    <section class="result-section" id="resultSection">
+      <div class="result-text">
+        <h2 id="resultTitle">Точка назначения не выбрана</h2>
+        <p id="resultDescription">
+          Как только ты запросишь случайный IP-адрес или впишешь город, здесь появится сводка по месту: город, континент и то, чем оно знаменито.
+        </p>
+        <div class="facts-title">Интересные факты</div>
+        <ul class="facts-list" id="placeFacts">
+          <li>Численность населения: пока неизвестно — «Капитан Паника» ждёт координаты.</li>
+          <li>Самое важное событие: запуск первого прыжка ещё впереди.</li>
+          <li>Причина известности: этот сайт только готовится стать легендой.</li>
+          <li>Смешной факт: ты уже читаешь описание места, которого ещё нет.</li>
+        </ul>
+      </div>
+
+      <div class="result-media" id="mediaBox">
+        <div class="result-placeholder" id="mediaPlaceholder">
+          Фотография точки назначения появится здесь после выбора IP-адреса или города.
+        </div>
+        <img id="placeImage" src="" alt="" style="display:none;" />
+      </div>
+    </section>
+
+    <section class="history-section">
+      <div class="history-header">Журнал прыжков</div>
+      <ul class="history-list" id="historyList">
+        <li class="history-empty">Пока нет сделанных прыжков. Нажми кнопку, чтобы оставить первый след в истории.</li>
+      </ul>
+    </section>
+
     <footer>
-      © 2025 «Капитан Паника». Минималистичный учебный проект.  
-      Все IP и локации сгенерированы для демонстрации.
+      © 2025 «Капитан Паника». Учебный проект. Реальные IP-адреса используются в демонстрационных целях, часть данных по городам — обобщённые.
     </footer>
   </div>
 
   <script>
-    // Набор "локаций": IP + место + факты.
-    // IP-адреса здесь демонстрационные, не обязательно реальные.
+    // ---------- ДАННЫЕ С РЕАЛЬНЫМИ IP И ГОРОДАМИ ----------
     const locations = [
+      {
+        ip: "8.8.8.8",
+        name: "Маунтин-Вью, США",
+        coords: "37.3861° N, 122.0839° W",
+        description: "Калифорнийский город, тесно связанный с крупными IT-компаниями и развитием интернета.",
+        image: "https://images.pexels.com/photos/3738992/pexels-photo-3738992.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        facts: [
+          "Численность населения: около 80 000 человек — уютный масштаб по меркам Кремниевой долины.",
+          "Самое важное событие: рост технологического кластера вокруг крупных IT-компаний.",
+          "Причина известности: один из символов Кремниевой долины и развития глобального интернета.",
+          "Забавный факт: здесь офисы таких компаний, чьими сервисами ты пользуешься каждый день, даже не задумываясь."
+        ]
+      },
+      {
+        ip: "1.1.1.1",
+        name: "Сидней, Австралия",
+        coords: "33.8688° S, 151.2093° E",
+        description: "Приморский мегаполис с одним из самых узнаваемых силуэтов на планете — оперный театр и мост Харбор-Бридж.",
+        image: "https://images.pexels.com/photos/2193300/pexels-photo-2193300.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        facts: [
+          "Численность населения: более 5 миллионов человек в агломерации.",
+          "Самое важное событие: проведение Олимпийских игр 2000 года, после которых город ещё сильнее прославился.",
+          "Причина известности: фирменная архитектура, пляжи и расслабленный прибрежный образ жизни.",
+          "Смешной факт: местные иногда завтракают на пляже раньше, чем ты успеваешь проснуться."
+        ]
+      },
       {
         ip: "13.248.118.1",
         name: "Токио, Япония",
         coords: "35.6762° N, 139.6503° E",
-        description: "Один из самых технологичных мегаполисов мира — город неоновых вывесок и идеального метро.",
+        description: "Один из самых технологичных мегаполисов мира — город неоновых вывесок, плотного метро и невероятной дисциплины.",
         image: "https://images.pexels.com/photos/3092770/pexels-photo-3092770.jpeg?auto=compress&cs=tinysrgb&w=1200",
         facts: [
-          "В Токио проживает более 37 миллионов человек в агломерации.",
-          "Город считается одной из столиц киберпанк-эстетики.",
-          "Автоматы с напитками и едой встречаются почти на каждом углу."
+          "Численность населения: свыше 37 миллионов человек в агломерации — крупнейшая урбан-зона мира.",
+          "Самое важное событие: стремительный послевоенный рост и превращение в глобальный финансовый и технологический центр.",
+          "Причина известности: сочетание традиционных храмов и киберпанк-улиц с неоновыми вывесками.",
+          "Смешной факт: автоматы с напитками и едой встречаются так часто, что кажется, будто они наблюдают за тобой."
         ]
       },
       {
         ip: "104.26.10.8",
-        name: "Р Reykjavík, Исландия",
+        name: "Рейкьявик, Исландия",
         coords: "64.1466° N, 21.9426° W",
-        description: "Самая северная столица мира, где можно увидеть северное сияние и гулять среди гейзеров.",
+        description: "Северная столица на краю Европы, окружённая вулканами, гейзерами и океаном.",
         image: "https://images.pexels.com/photos/3735162/pexels-photo-3735162.jpeg?auto=compress&cs=tinysrgb&w=1200",
         facts: [
-          "Большая часть электроэнергии в стране поступает из геотермальных источников.",
-          "В Исландии практически нет лесов — пейзажи напоминают другую планету.",
-          "Местные жители очень любят купаться в горячих источниках круглый год."
+          "Численность населения: чуть более 130 000 человек в городе и около 240 000 в столичном регионе.",
+          "Самое важное событие: активное развитие геотермальной энергетики, сделавшее страну почти полностью зелёной по электричеству.",
+          "Причина известности: северное сияние, суровые пейзажи и атмосфера другой планеты.",
+          "Забавный факт: в Исландии почти нет лесов, поэтому шутят, что потеряться можно только за ближайшим домом."
         ]
       },
       {
         ip: "172.217.20.46",
         name: "Сан-Франциско, США",
         coords: "37.7749° N, 122.4194° W",
-        description: "Город туманов, холмов и старых троллейбусов, окружённый стартапами и Тихим океаном.",
+        description: "Город туманов, холмов и легендарного моста через залив.",
         image: "https://images.pexels.com/photos/208745/pexels-photo-208745.jpeg?auto=compress&cs=tinysrgb&w=1200",
         facts: [
-          "Мост «Золотые ворота» часто скрывается в плотном тумане.",
-          "Сан-Франциско — один из центров мировой IT-индустрии.",
-          "Город построен на холмах, поэтому здесь много крутых улиц и лестниц."
+          "Численность населения: около 800 000 человек в черте города и миллионы в агломерации.",
+          "Самое важное событие: золотая лихорадка XIX века, после которой город вырос взрывными темпами.",
+          "Причина известности: мост «Золотые ворота», холмы, старинные трамваи и близость к Кремниевой долине.",
+          "Смешной факт: иногда тумана так много, что мост словно исчезает, и туристы делают фото «невидимого» чуда."
         ]
       },
       {
         ip: "81.2.69.142",
         name: "Лондон, Великобритания",
         coords: "51.5074° N, 0.1278° W",
-        description: "Туманный мегаполис, где соседствуют древняя архитектура, панки и небоскрёбы Сити.",
+        description: "Туманный мегаполис, где старинная архитектура соседствует с ультрасовременными небоскрёбами.",
         image: "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&w=1200",
         facts: [
-          "В Лондоне более 170 музеев, многие из них бесплатны.",
-          "Знаменитые двухэтажные автобусы стали символом города.",
-          "Погода меняется так быстро, что зонт здесь почти как часть дресс-кода."
+          "Численность населения: более 9 миллионов человек в городе и свыше 14 миллионов в агломерации.",
+          "Самое важное событие: многовековой статус политического и финансового центра Британской империи.",
+          "Причина известности: Биг-Бен, Темза, двухэтажные автобусы и бесконечные музеи.",
+          "Забавный факт: здесь так часто идёт мелкий дождь, что зонт — почти постоянный аксессуар местного жителя."
         ]
       },
       {
         ip: "45.33.32.156",
         name: "Сеул, Южная Корея",
         coords: "37.5665° N, 126.9780° E",
-        description: "Город, где дворцы эпохи Чосон стоят рядом с небоскрёбами и к-поп билбордами.",
+        description: "Город, где древние дворцы мирно уживаются с неоновыми кварталами и к-поп билбордами.",
         image: "https://images.pexels.com/photos/237211/pexels-photo-237211.jpeg?auto=compress&cs=tinysrgb&w=1200",
         facts: [
-          "Метро Сеула считается одним из самых удобных в мире.",
-          "Город ярко светится вывесками и экранами почти всю ночь.",
-          "Кафе и магазины часто работают до очень позднего времени."
+          "Численность населения: около 10 миллионов человек в городе и свыше 25 миллионов в агломерации.",
+          "Самое важное событие: стремительная индустриализация и превращение страны в технологического гиганта.",
+          "Причина известности: к-поп, дорамы, уличная еда и невероятно яркие ночные районы.",
+          "Смешной факт: некоторые кафе в Сеуле работают 24/7, так что можно завтракать ночью и ужинать утром."
+        ]
+      },
+      {
+        ip: "91.198.174.192",
+        name: "Амстердам, Нидерланды",
+        coords: "52.3676° N, 4.9041° E",
+        description: "Город каналов, велосипедов и уютных узких домиков.",
+        image: "https://images.pexels.com/photos/161249/canal-amsterdam-netherlands-bridge-161249.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        facts: [
+          "Численность населения: около 900 000 человек в городе и более 2,5 миллионов в регионе.",
+          "Самое важное событие: золотой век Голландии, когда Амстердам стал одним из крупнейших портов мира.",
+          "Причина известности: каналы, тюльпаны, музеи и свободолюбивый дух.",
+          "Забавный факт: велосипедов здесь больше, чем людей, поэтому иногда кажется, что авто — редкий вид."
+        ]
+      },
+      {
+        ip: "185.15.59.224",
+        name: "Берлин, Германия",
+        coords: "52.5200° N, 13.4050° E",
+        description: "Столица с богатой историей, уличным искусством и ночной жизнью.",
+        image: "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop",
+        facts: [
+          "Численность населения: около 3,8 миллиона человек.",
+          "Самое важное событие: падение Берлинской стены в 1989 году и воссоединение города.",
+          "Причина известности: альтернативная культура, техно-клубы и исторические памятники.",
+          "Смешной факт: местные считают, что нормальный вечер может начаться ближе к полуночи."
+        ]
+      },
+      {
+        ip: "151.101.1.69",
+        name: "Нью-Йорк, США",
+        coords: "40.7128° N, 74.0060° W",
+        description: "Город, который никогда не спит: небоскрёбы, жёлтые такси и бесконечные фильмы.",
+        image: "https://images.pexels.com/photos/3787839/pexels-photo-3787839.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        facts: [
+          "Численность населения: более 8,5 миллионов человек в городе и свыше 19 миллионов в агломерации.",
+          "Самое важное событие: статус финансовой столицы мира и культурного перекрёстка.",
+          "Причина известности: Таймс-сквер, Бродвей, Центральный парк и бесконечные сериалы про этот город.",
+          "Смешной факт: многие улицы кажутся знакомыми, даже если ты там никогда не был — спасибо кино."
         ]
       }
     ];
 
+    // ---------- DOM-элементы ----------
     const planetEl = document.getElementById("planet");
+    const planetLabelEl = document.getElementById("planetLabel");
     const ipValueEl = document.getElementById("ipValue");
     const placeNameEl = document.getElementById("placeName");
     const placeCoordsEl = document.getElementById("placeCoords");
@@ -624,27 +875,60 @@ index.html
     const mediaPlaceholderEl = document.getElementById("mediaPlaceholder");
     const resultSectionEl = document.getElementById("resultSection");
 
-    document.getElementById("generateBtn").addEventListener("click", () => {
-      // Выбираем случайную локацию
-      const location = locations[Math.floor(Math.random() * locations.length)];
+    const historyListEl = document.getElementById("historyList");
+    const generateBtn = document.getElementById("generateBtn");
+    const cityInputEl = document.getElementById("cityInput");
+    const citySearchBtn = document.getElementById("citySearchBtn");
+    const copyIpBtn = document.getElementById("copyIpBtn");
+    const copyHintEl = document.getElementById("copyHint");
 
-      // Анимация планеты — перезапуск
+    const jumpHistory = [];
+
+    function renderHistory() {
+      historyListEl.innerHTML = "";
+      if (jumpHistory.length === 0) {
+        const li = document.createElement("li");
+        li.className = "history-empty";
+        li.textContent = "Пока нет сделанных прыжков. Нажми кнопку, чтобы оставить первый след в истории.";
+        historyListEl.appendChild(li);
+        return;
+      }
+      jumpHistory.forEach((entry) => {
+        const li = document.createElement("li");
+        li.className = "history-item";
+        const ipSpan = document.createElement("span");
+        ipSpan.textContent = entry.ip;
+        const nameSpan = document.createElement("span");
+        nameSpan.textContent = entry.name;
+        li.appendChild(ipSpan);
+        li.appendChild(nameSpan);
+        historyListEl.appendChild(li);
+      });
+    }
+
+    function spinPlanet() {
       planetEl.classList.remove("planet-spin");
-      void planetEl.offsetWidth; // «хак», чтобы перезапустить анимацию
+      void planetEl.offsetWidth; // перезапуск анимации
       planetEl.classList.add("planet-spin");
+    }
 
-      // Обновляем текст
+    function applyLocation(location, source) {
+      spinPlanet();
+
       ipValueEl.textContent = location.ip;
       placeNameEl.textContent = location.name;
-      placeCoordsEl.textContent = location.coords;
+      placeCoordsEl.textContent = location.coords || "Координаты не указаны";
+      planetLabelEl.textContent = source === "city" ? "DIRECT • CITY" : "PANIC • IP";
 
-      statusTextEl.textContent = "прыжок выполнен, данные получены";
       statusShortEl.textContent = "онлайн";
+      statusTextEl.textContent =
+        source === "city"
+          ? "точка найдена по запросу города"
+          : "прыжок выполнен, данные получены";
 
       resultTitleEl.textContent = `Точка назначения: ${location.name}`;
       resultDescriptionEl.textContent = location.description;
 
-      // Обновляем факты
       placeFactsEl.innerHTML = "";
       location.facts.forEach((fact) => {
         const li = document.createElement("li");
@@ -652,7 +936,6 @@ index.html
         placeFactsEl.appendChild(li);
       });
 
-      // Обновляем картинку
       placeImageEl.src = location.image;
       placeImageEl.alt = location.name;
       placeImageEl.style.display = "block";
@@ -660,9 +943,95 @@ index.html
         mediaPlaceholderEl.style.display = "none";
       }
 
-      // Плавно «перелетаем» к блоку результата
+      jumpHistory.unshift({ ip: location.ip, name: location.name });
+      if (jumpHistory.length > 6) jumpHistory.pop();
+      renderHistory();
+
       resultSectionEl.scrollIntoView({ behavior: "smooth", block: "center" });
+      copyHintEl.textContent = "Можно скопировать IP";
+    }
+
+    function generatePseudoIPFromString(str) {
+      let a = 0, b = 0, c = 0, d = 0;
+      for (let i = 0; i < str.length; i++) {
+        const code = str.charCodeAt(i);
+        if (i % 4 === 0) a += code;
+        else if (i % 4 === 1) b += code;
+        else if (i % 4 === 2) c += code;
+        else d += code;
+      }
+      a = a % 223 + 1;
+      b = b % 255;
+      c = c % 255;
+      d = d % 255;
+      return `${a}.${b}.${c}.${d}`;
+    }
+
+    function createLocationFromCityName(cityName) {
+      const cleaned = cityName.trim();
+      if (!cleaned) return null;
+      const pseudoIp = generatePseudoIPFromString(cleaned);
+      return {
+        ip: pseudoIp,
+        name: cleaned,
+        coords: "Координаты смотри на карте — данные не подтягиваются автоматически.",
+        description: `Карточка города «${cleaned}» сгенерирована «Капитаном Паникой» для демонстрации. Для точных данных всегда смотри официальные источники.`,
+        image: `https://source.unsplash.com/800x500/?city,${encodeURIComponent(cleaned)}`,
+        facts: [
+          `Численность населения: предполагается, что в «${cleaned}» живут сотни тысяч или миллионы людей (уточняется в статистике).`,
+          `Самое важное событие: у каждого города свой список дат — для «${cleaned}» ты можешь придумать главное событие сам.`,
+          `Причина известности: возможно, архитектура, кухня, история или просто то, что именно ты здесь побывал.`,
+          `Приятный факт: теперь «${cleaned}» официально появился в журнале прыжков «Капитана Паники».`
+        ]
+      };
+    }
+
+    generateBtn.addEventListener("click", () => {
+      const location = locations[Math.floor(Math.random() * locations.length)];
+      applyLocation(location, "ip");
     });
+
+    citySearchBtn.addEventListener("click", () => {
+      const query = cityInputEl.value;
+      if (!query.trim()) return;
+
+      const lower = query.trim().toLowerCase();
+      const found = locations.find((loc) =>
+        loc.name.toLowerCase().includes(lower)
+      );
+
+      if (found) {
+        applyLocation(found, "city");
+      } else {
+        const synthetic = createLocationFromCityName(query);
+        if (synthetic) {
+          applyLocation(synthetic, "city");
+        }
+      }
+    });
+
+    cityInputEl.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        citySearchBtn.click();
+      }
+    });
+
+    copyIpBtn.addEventListener("click", async () => {
+      const ip = ipValueEl.textContent.trim();
+      if (!ip || ip === "0.0.0.0") {
+        copyHintEl.textContent = "Сначала выбери IP";
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(ip);
+        copyHintEl.textContent = "IP скопирован в буфер обмена";
+      } catch {
+        copyHintEl.textContent = "Не удалось скопировать IP";
+      }
+    });
+
+    renderHistory();
   </script>
 </body>
 </html>
+

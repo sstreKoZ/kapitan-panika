@@ -14,21 +14,50 @@ index.html
     }
 
     body {
-      background: #000;
+      background: radial-gradient(circle at 20% 0%, #111 0, #000 45%, #000 100%);
       color: #fff;
       min-height: 100vh;
       display: flex;
       align-items: stretch;
       justify-content: center;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Лёгкое «звёздное» поле на фоне */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -50px;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle, rgba(255, 255, 255, 0.22) 0, transparent 50%),
+        radial-gradient(circle, rgba(255, 255, 255, 0.12) 0, transparent 55%),
+        radial-gradient(circle, rgba(255, 255, 255, 0.08) 0, transparent 60%);
+      background-size: 600px 600px, 900px 900px, 1300px 1300px;
+      background-position: 10% 0%, 80% 40%, 50% 100%;
+      opacity: 0.13;
+      mix-blend-mode: screen;
+      z-index: -1;
     }
 
     .wrapper {
       width: 100%;
-      max-width: 1100px;
-      padding: 24px 16px 40px;
+      max-width: 1150px;
+      padding: 24px 20px 40px;
       display: flex;
       flex-direction: column;
       gap: 32px;
+      border-radius: 32px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow:
+        0 0 40px rgba(255, 255, 255, 0.16),
+        0 0 140px rgba(255, 255, 255, 0.18);
+      background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.06), transparent 60%),
+                  radial-gradient(circle at 100% 100%, rgba(255, 255, 255, 0.04), transparent 60%),
+                  rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(16px);
+      margin: 20px;
     }
 
     header {
@@ -36,8 +65,8 @@ index.html
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
       padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.18);
     }
 
     .logo {
@@ -45,18 +74,21 @@ index.html
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.16em;
-      padding: 4px 10px;
+      padding: 6px 14px;
       border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.22);
       box-shadow:
-        0 0 18px rgba(255, 255, 255, 0.35),
-        0 0 40px rgba(255, 255, 255, 0.05);
+        0 0 18px rgba(255, 255, 255, 0.5),
+        0 0 50px rgba(255, 255, 255, 0.18);
+      background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.16), transparent 55%);
     }
 
     .tagline {
       font-size: 12px;
-      opacity: 0.7;
+      opacity: 0.8;
       text-align: right;
+      line-height: 1.4;
+      text-shadow: 0 0 14px rgba(255, 255, 255, 0.35);
     }
 
     main {
@@ -71,6 +103,9 @@ index.html
       font-size: 34px;
       line-height: 1.05;
       margin-bottom: 14px;
+      text-shadow:
+        0 0 22px rgba(255, 255, 255, 0.4),
+        0 0 60px rgba(255, 255, 255, 0.25);
     }
 
     .hero-text-title span {
@@ -78,14 +113,14 @@ index.html
       font-size: 14px;
       text-transform: uppercase;
       letter-spacing: 0.24em;
-      opacity: 0.55;
+      opacity: 0.65;
       margin-bottom: 8px;
     }
 
     .hero-text-subtitle {
       font-size: 15px;
-      opacity: 0.78;
-      max-width: 380px;
+      opacity: 0.85;
+      max-width: 420px;
       margin-bottom: 20px;
     }
 
@@ -102,11 +137,11 @@ index.html
       letter-spacing: 0.12em;
       padding: 6px 12px;
       border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.03);
       box-shadow:
-        0 0 14px rgba(255, 255, 255, 0.2),
-        0 0 40px rgba(255, 255, 255, 0.08);
+        0 0 16px rgba(255, 255, 255, 0.3),
+        0 0 40px rgba(255, 255, 255, 0.18);
       opacity: 0.9;
     }
 
@@ -120,7 +155,7 @@ index.html
 
     .btn-main {
       border-radius: 999px;
-      padding: 10px 20px;
+      padding: 10px 22px;
       font-size: 14px;
       border: none;
       cursor: pointer;
@@ -132,52 +167,72 @@ index.html
       color: #000;
       font-weight: 600;
       box-shadow:
-        0 0 24px rgba(255, 255, 255, 0.45),
-        0 0 70px rgba(255, 255, 255, 0.16);
+        0 0 24px rgba(255, 255, 255, 0.7),
+        0 0 90px rgba(255, 255, 255, 0.45);
     }
 
     .btn-main:hover {
       transform: translateY(-1px);
       box-shadow:
-        0 0 30px rgba(255, 255, 255, 0.7),
-        0 0 90px rgba(255, 255, 255, 0.3);
+        0 0 34px rgba(255, 255, 255, 0.9),
+        0 0 120px rgba(255, 255, 255, 0.6);
     }
 
     .hint-text {
       font-size: 11px;
-      opacity: 0.65;
+      opacity: 0.8;
     }
 
-    /* Правая часть: глобус */
+    /* Правая часть: ГЛОБУС */
     .space-panel {
       border-radius: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.28);
       padding: 20px 18px 18px;
-      background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.09), transparent 58%),
-                  radial-gradient(circle at 100% 100%, rgba(255, 255, 255, 0.06), transparent 62%),
-                  #000;
+      background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.12), transparent 58%),
+                  radial-gradient(circle at 100% 100%, rgba(255, 255, 255, 0.08), transparent 62%),
+                  #020202;
       box-shadow:
-        0 0 40px rgba(255, 255, 255, 0.2),
-        0 0 110px rgba(255, 255, 255, 0.05);
+        0 0 60px rgba(255, 255, 255, 0.4),
+        0 0 130px rgba(255, 255, 255, 0.25);
       display: flex;
       flex-direction: column;
       gap: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .space-panel::after {
+      /* лёгкие мерцающие «цифровые шумы» */
+      content: "";
+      position: absolute;
+      inset: -50%;
+      background-image:
+        linear-gradient(120deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+        linear-gradient(60deg, rgba(255, 255, 255, 0.09) 1px, transparent 1px);
+      background-size: 160px 160px;
+      opacity: 0.08;
+      mix-blend-mode: screen;
+      pointer-events: none;
     }
 
     .space-header {
       display: flex;
       justify-content: space-between;
       font-size: 11px;
-      opacity: 0.75;
+      opacity: 0.8;
       text-transform: uppercase;
       letter-spacing: 0.16em;
+      position: relative;
+      z-index: 1;
     }
 
     .space-main {
       display: grid;
       grid-template-columns: 1fr 1.1fr;
-      gap: 16px;
+      gap: 18px;
       align-items: center;
+      position: relative;
+      z-index: 1;
     }
 
     .globe-wrap {
@@ -187,16 +242,16 @@ index.html
     }
 
     .globe-orbit {
-      width: 210px;
-      height: 210px;
+      width: 215px;
+      height: 215px;
       border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.22);
       display: flex;
       align-items: center;
       justify-content: center;
       box-shadow:
-        0 0 40px rgba(255, 255, 255, 0.18),
-        0 0 90px rgba(255, 255, 255, 0.05);
+        0 0 45px rgba(255, 255, 255, 0.25),
+        0 0 120px rgba(255, 255, 255, 0.2);
       position: relative;
       overflow: visible;
     }
@@ -206,46 +261,98 @@ index.html
       position: absolute;
       inset: 18px;
       border-radius: 50%;
-      border: 1px dashed rgba(255, 255, 255, 0.18);
-      opacity: 0.7;
+      border: 1px dashed rgba(255, 255, 255, 0.26);
+      opacity: 0.75;
+    }
+
+    .globe-orbit::after {
+      /* орбитальная линия по диагонали */
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      transform: rotate(22deg);
+      opacity: 0.4;
     }
 
     .globe {
-      width: 150px;
-      height: 150px;
+      width: 155px;
+      height: 155px;
       border-radius: 50%;
       position: relative;
       overflow: hidden;
       border: 2px solid #fff;
       box-shadow:
-        0 0 25px rgba(255, 255, 255, 0.6),
-        0 0 60px rgba(255, 255, 255, 0.3);
-      background:
-        radial-gradient(circle at 30% 20%, #ffffff 0, #000 70%);
-      /* Лёгкая постоянная медленная анимация */
-      animation: globeIdle 18s linear infinite;
+        0 0 30px rgba(255, 255, 255, 0.7),
+        0 0 90px rgba(255, 255, 255, 0.45);
+      background: #000;
+      animation: globeIdle 22s linear infinite;
     }
 
-    .globe-grid {
-      position: absolute;
-      inset: -20%;
-      background-image:
-        repeating-radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.15) 0px, rgba(255, 255, 255, 0.15) 1px, transparent 2px, transparent 8px),
-        repeating-conic-gradient(from 0deg, rgba(255, 255, 255, 0.15) 0deg 1deg, transparent 1deg 5deg);
-      mix-blend-mode: soft-light;
-      opacity: 0.8;
-    }
-
-    .globe-continents {
+    .globe-layer {
       position: absolute;
       inset: 0;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    /* ОКЕАН — белый круг */
+    .globe-ocean {
+      background: #fff;
+    }
+
+    /* МАТЕРИКИ — чёрные «пятна», похожие на референс */
+    .globe-continents {
       background:
-        radial-gradient(circle at 30% 30%, rgba(0, 0, 0, 0.8) 0, transparent 38%),
-        radial-gradient(circle at 70% 40%, rgba(0, 0, 0, 0.78) 0, transparent 42%),
-        radial-gradient(circle at 40% 78%, rgba(0, 0, 0, 0.85) 0, transparent 38%);
-      mix-blend-mode: multiply;
-      opacity: 0.95;
-      animation: continentsDrift 26s linear infinite;
+        radial-gradient(circle at 22% 32%, #000 0, #000 30%, transparent 42%),
+        radial-gradient(circle at 68% 40%, #000 0, #000 26%, transparent 40%),
+        radial-gradient(circle at 40% 78%, #000 0, #000 26%, transparent 40%);
+      mix-blend-mode: normal;
+      box-shadow:
+        0 0 16px rgba(0, 0, 0, 0.85),
+        0 0 32px rgba(0, 0, 0, 0.8);
+    }
+
+    /* СЕТКА ИНТЕРНЕТА — полупрозрачная серая сетка + узлы */
+    .globe-network {
+      background-image:
+        /* линии долготы и широты */
+        repeating-radial-gradient(circle at 50% 50%,
+          rgba(80, 80, 80, 0.55) 0px,
+          rgba(80, 80, 80, 0.55) 1px,
+          transparent 2px,
+          transparent 14px),
+        repeating-conic-gradient(from 0deg,
+          rgba(80, 80, 80, 0.4) 0deg 1deg,
+          transparent 1deg 9deg);
+      mix-blend-mode: soft-light;
+      opacity: 0.65;
+      filter: blur(0.3px);
+    }
+
+    /* Узлы-светлячки на сетке */
+    .globe-network::before {
+      content: "";
+      position: absolute;
+      inset: 12%;
+      border-radius: 50%;
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(200, 200, 200, 0.9) 0, transparent 40%),
+        radial-gradient(circle at 65% 45%, rgba(200, 200, 200, 0.8) 0, transparent 40%),
+        radial-gradient(circle at 35% 70%, rgba(200, 200, 200, 0.78) 0, transparent 45%);
+      mix-blend-mode: screen;
+      opacity: 0.9;
+    }
+
+    .globe-glow {
+      background:
+        radial-gradient(circle at 30% 0%, rgba(255, 255, 255, 0.8) 0, transparent 60%),
+        radial-gradient(circle at 80% 100%, rgba(255, 255, 255, 0.45) 0, transparent 70%);
+      mix-blend-mode: screen;
+      opacity: 0.8;
+      animation: globeGlow 4.5s ease-in-out infinite alternate;
     }
 
     .globe-label {
@@ -256,17 +363,17 @@ index.html
       font-size: 11px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.78);
       padding: 3px 8px;
       border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.7);
       box-shadow:
-        0 0 10px rgba(255, 255, 255, 0.5),
-        0 0 24px rgba(255, 255, 255, 0.25);
+        0 0 10px rgba(255, 255, 255, 0.7),
+        0 0 24px rgba(255, 255, 255, 0.45);
       z-index: 3;
     }
 
-    /* Флажок */
+    /* ФЛАЖОК */
     .globe-flag {
       position: absolute;
       width: 10px;
@@ -283,7 +390,7 @@ index.html
       background: #fff;
       left: 4px;
       bottom: 0;
-      box-shadow: 0 0 4px rgba(255, 255, 255, 0.7);
+      box-shadow: 0 0 4px rgba(255, 255, 255, 0.9);
     }
 
     .globe-flag-cloth {
@@ -294,10 +401,11 @@ index.html
       height: 7px;
       background: #fff;
       border-radius: 2px;
-      box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+      box-shadow:
+        0 0 6px rgba(255, 255, 255, 1),
+        0 0 14px rgba(255, 255, 255, 0.9);
     }
 
-    /* Анимация быстрого прыжка */
     .globe-spin {
       animation: globeJump 0.6s ease-out;
     }
@@ -309,14 +417,14 @@ index.html
 
     @keyframes globeJump {
       0% { transform: rotate(0deg) scale(1); }
-      40% { transform: rotate(200deg) scale(1.05); }
-      80% { transform: rotate(360deg) scale(0.98); }
-      100% { transform: rotate(400deg) scale(1); }
+      40% { transform: rotate(210deg) scale(1.08); }
+      80% { transform: rotate(380deg) scale(0.97); }
+      100% { transform: rotate(420deg) scale(1); }
     }
 
-    @keyframes continentsDrift {
-      0% { transform: translateX(0) rotate(0deg); }
-      100% { transform: translateX(-12px) rotate(360deg); }
+    @keyframes globeGlow {
+      0% { opacity: 0.7; }
+      100% { opacity: 1; }
     }
 
     .space-info {
@@ -327,7 +435,7 @@ index.html
 
     .label {
       font-size: 11px;
-      opacity: 0.6;
+      opacity: 0.7;
       text-transform: uppercase;
       letter-spacing: 0.16em;
     }
@@ -338,11 +446,11 @@ index.html
       letter-spacing: 0.12em;
       padding: 6px 10px;
       border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.03);
       box-shadow:
-        0 0 20px rgba(255, 255, 255, 0.25),
-        0 0 50px rgba(255, 255, 255, 0.09);
+        0 0 24px rgba(255, 255, 255, 0.35),
+        0 0 60px rgba(255, 255, 255, 0.2);
     }
 
     .place-name {
@@ -352,43 +460,44 @@ index.html
 
     .coords {
       font-size: 11px;
-      opacity: 0.7;
+      opacity: 0.75;
     }
 
     .status {
       font-size: 11px;
-      opacity: 0.7;
+      opacity: 0.75;
       margin-top: 6px;
     }
 
     .status span {
       font-weight: 600;
-      opacity: 0.9;
+      opacity: 0.95;
     }
 
     /* Блок результата */
     .result-section {
       border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.22);
       padding: 18px 16px 16px;
       display: grid;
       grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
       gap: 16px;
-      background: radial-gradient(circle at 20% 0, rgba(255, 255, 255, 0.1), transparent 55%),
+      background: radial-gradient(circle at 20% 0, rgba(255, 255, 255, 0.12), transparent 55%),
                   #000;
       box-shadow:
-        0 0 40px rgba(255, 255, 255, 0.18),
-        0 0 90px rgba(255, 255, 255, 0.06);
+        0 0 40px rgba(255, 255, 255, 0.28),
+        0 0 90px rgba(255, 255, 255, 0.2);
     }
 
     .result-text h2 {
       font-size: 18px;
       margin-bottom: 6px;
+      text-shadow: 0 0 12px rgba(255, 255, 255, 0.45);
     }
 
     .result-text p {
       font-size: 13px;
-      opacity: 0.78;
+      opacity: 0.82;
       margin-bottom: 8px;
     }
 
@@ -396,7 +505,7 @@ index.html
       font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 0.16em;
-      opacity: 0.7;
+      opacity: 0.8;
       margin-top: 10px;
       margin-bottom: 4px;
     }
@@ -404,7 +513,7 @@ index.html
     .facts-list {
       list-style: none;
       font-size: 13px;
-      opacity: 0.85;
+      opacity: 0.9;
       display: grid;
       gap: 4px;
     }
@@ -417,12 +526,12 @@ index.html
     .result-media {
       border-radius: 22px;
       overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.17);
+      border: 1px solid rgba(255, 255, 255, 0.22);
       box-shadow:
-        0 0 26px rgba(255, 255, 255, 0.35),
-        0 0 70px rgba(255, 255, 255, 0.1);
+        0 0 36px rgba(255, 255, 255, 0.55),
+        0 0 110px rgba(255, 255, 255, 0.25);
       background: #000;
-      min-height: 200px;
+      min-height: 210px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -431,14 +540,14 @@ index.html
     .result-media img {
       width: 100%;
       height: 100%;
-      max-height: 320px;
+      max-height: 340px;
       object-fit: cover;
       border-radius: 22px;
     }
 
     .result-placeholder {
       font-size: 12px;
-      opacity: 0.65;
+      opacity: 0.7;
       padding: 14px;
       text-align: center;
     }
@@ -446,20 +555,20 @@ index.html
     /* Журнал прыжков */
     .history-section {
       border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       padding: 14px 14px 12px;
-      background: radial-gradient(circle at 0 100%, rgba(255, 255, 255, 0.1), transparent 50%),
+      background: radial-gradient(circle at 0 100%, rgba(255, 255, 255, 0.14), transparent 50%),
                   #000;
       box-shadow:
-        0 0 32px rgba(255, 255, 255, 0.15),
-        0 0 70px rgba(255, 255, 255, 0.04);
+        0 0 32px rgba(255, 255, 255, 0.2),
+        0 0 70px rgba(255, 255, 255, 0.12);
     }
 
     .history-header {
       font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 0.18em;
-      opacity: 0.75;
+      opacity: 0.8;
       margin-bottom: 6px;
     }
 
@@ -474,7 +583,7 @@ index.html
       display: flex;
       justify-content: space-between;
       gap: 8px;
-      opacity: 0.85;
+      opacity: 0.9;
     }
 
     .history-item span:first-child {
@@ -483,13 +592,13 @@ index.html
     }
 
     .history-empty {
-      opacity: 0.6;
+      opacity: 0.7;
     }
 
     footer {
       font-size: 11px;
-      opacity: 0.55;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      opacity: 0.7;
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
       padding-top: 10px;
       text-align: right;
     }
@@ -527,13 +636,13 @@ index.html
       }
 
       .globe-orbit {
-        width: 180px;
-        height: 180px;
+        width: 185px;
+        height: 185px;
       }
 
       .globe {
-        width: 130px;
-        height: 130px;
+        width: 135px;
+        height: 135px;
       }
     }
   </style>
@@ -543,7 +652,7 @@ index.html
     <header>
       <div class="logo">Капитан&nbsp;Паника</div>
       <div class="tagline">
-        Чёрно-белый глобус, быстрые прыжки по реальным IP-адресам.<br />
+        Чёрно-белый глобус, серая интернет-сетка и IP-прыжки по реальным городам.<br />
         Один клик — и флажок воткнётся в новую точку планеты.
       </div>
     </header>
@@ -555,18 +664,18 @@ index.html
           Прыжок в случайную точку сети.
         </div>
         <p class="hero-text-subtitle">
-          Нажми на кнопку — и «Капитан Паника» выберет IP, покажет город, воткнёт флажок в глобус и выведет факты с картинкой.
+          Нажми на кнопку — и «Капитан Паника» выберет IP, покажет город, воткнёт флажок в глобус и выведет факты с цветной картинкой.
         </p>
 
         <div class="hero-mini">
-          <div class="pill">Минимализм</div>
-          <div class="pill">Чёрный + белый</div>
-          <div class="pill">Мягкое свечение</div>
+          <div class="pill">Глобус с сеткой</div>
+          <div class="pill">Чёрный + белый + свет</div>
+          <div class="pill">Смелый космический UI</div>
         </div>
 
         <div class="controls">
           <button class="btn-main" id="generateBtn">Получить случайный IP</button>
-          <span class="hint-text">Каждый прыжок — новый адрес, новое место и новая история.</span>
+          <span class="hint-text">Каждый прыжок — новый адрес, новое место и новый набор забавных фактов.</span>
         </div>
       </section>
 
@@ -580,8 +689,10 @@ index.html
           <div class="globe-wrap">
             <div class="globe-orbit">
               <div class="globe" id="globe">
-                <div class="globe-grid"></div>
-                <div class="globe-continents"></div>
+                <div class="globe-layer globe-ocean"></div>
+                <div class="globe-layer globe-continents"></div>
+                <div class="globe-layer globe-network"></div>
+                <div class="globe-layer globe-glow"></div>
                 <div class="globe-label" id="globeLabel">PANIC • 01</div>
                 <div class="globe-flag" id="globeFlag" style="left:50%; top:50%; display:none;">
                   <div class="globe-flag-stick"></div>
@@ -611,20 +722,20 @@ index.html
       <div class="result-text">
         <h2 id="resultTitle">Точка назначения не выбрана</h2>
         <p id="resultDescription">
-          Здесь появится краткая сводка по месту: город, страна, настроение и почему туда вообще стоит «прыгнуть».
+          Здесь появится сводка по месту: город, страна, чем оно живёт и за что его любят местные и туристы.
         </p>
         <div class="facts-title">Интересные факты</div>
         <ul class="facts-list" id="placeFacts">
-          <li>Численность населения: пока неизвестно — радар ещё не крутился.</li>
-          <li>Самое важное событие: старт первой миссии «Капитана Паники» всё ещё впереди.</li>
-          <li>Причина известности: этот сайт только готовится стать легендой.</li>
-          <li>Смешной факт: ты уже читаешь описание, но ещё никуда не прыгнул.</li>
+          <li>Численность населения: система ещё не выбрала точку — планета вращается в режиме ожидания.</li>
+          <li>Самое важное событие: первый клип по кнопке «Получить случайный IP» всё изменит.</li>
+          <li>Причина известности: этот раздел ждёт свой первый город.</li>
+          <li>Смешной факт: ты уже находишься на сайте про путешествия по IP, а это само по себе немного безумно.</li>
         </ul>
       </div>
 
       <div class="result-media" id="mediaBox">
         <div class="result-placeholder" id="mediaPlaceholder">
-          Цветное фото места появится здесь после выбора IP-адреса.
+          Цветное фото точки назначения появится здесь после выбора IP-адреса.
         </div>
         <img id="placeImage" src="" alt="" style="display:none;" />
       </div>
@@ -633,7 +744,7 @@ index.html
     <section class="history-section">
       <div class="history-header">Журнал прыжков</div>
       <ul class="history-list" id="historyList">
-        <li class="history-empty">Пока нет прыжков. Нажми кнопку, чтобы оставить первый след на глобусе.</li>
+        <li class="history-empty">Пока нет прыжков. Нажми кнопку, чтобы глобус впервые поймал флажок.</li>
       </ul>
     </section>
 
@@ -643,119 +754,118 @@ index.html
   </div>
 
   <script>
-    // МНОГО IP-адресов: реальные и псевдослучайные (для разнообразия)
+    /* Много IP-адресов с городами и позициями флага (в процентах по глобусу) */
     const locations = [
-      // Реальные/известные IP + города
       {
         ip: "8.8.8.8",
         name: "Маунтин-Вью, США",
         coords: "37.3861° N, 122.0839° W",
         description: "Тихий калифорнийский город, который неожиданно оказался в центре мировой IT-индустрии.",
         image: "https://images.pexels.com/photos/3738992/pexels-photo-3738992.jpeg?auto=compress&cs=tinysrgb&w=1200",
-        flagX: 25,
-        flagY: 55,
+        flagX: 24,
+        flagY: 52,
         facts: [
-          "Численность населения: около 80 000 человек — уютный масштаб для центра технологий.",
-          "Самое важное событие: превращение обычного городка в сердце глобального интернета.",
-          "Причина известности: многие сервисы, которыми ты пользуешься ежедневно, так или иначе связаны с этим местом.",
-          "Смешной факт: здесь можно обсудить будущее интернета в очереди за кофе — и это будет нормальный small talk."
+          "Численность населения: около 80 000 человек — компактное сердце больших технологий.",
+          "Самое важное событие: превращение спокойного пригородного города в символ Кремниевой долины.",
+          "Причина известности: здесь сосредоточены штаб-квартиры сервисов, без которых сложно представить интернет.",
+          "Смешной факт: обсуждать будущее планеты в очереди за кофе здесь абсолютно нормально."
         ]
       },
       {
         ip: "1.1.1.1",
         name: "Сидней, Австралия",
         coords: "33.8688° S, 151.2093° E",
-        description: "Город с одним из самых узнаваемых силуэтов: опера, мост, вода и солнце.",
+        description: "Прибрежный мегаполис с оперным театром, мостом и пляжами, которые ты точно видел на открытках.",
         image: "https://images.pexels.com/photos/2193300/pexels-photo-2193300.jpeg?auto=compress&cs=tinysrgb&w=1200",
         flagX: 82,
         flagY: 80,
         facts: [
           "Численность населения: более 5 миллионов человек в агломерации.",
-          "Самое важное событие: Олимпийские игры 2000 года, после которых весь мир ещё раз запомнил Сидней.",
-          "Причина известности: прибрежные виды, пляжи и расслабленный образ жизни на краю материка.",
-          "Смешной факт: здесь вполне реально увидеть людей в деловых костюмах и вьетнамках."
+          "Самое важное событие: Олимпийские игры 2000 года — город показал себя всему миру.",
+          "Причина известности: культовые виды залива, опера и расслабленный прибрежный ритм жизни.",
+          "Смешной факт: людей в деловых костюмах и шлёпках здесь можно встретить чаще, чем кажется логичным."
         ]
       },
       {
         ip: "13.248.118.1",
         name: "Токио, Япония",
         coords: "35.6762° N, 139.6503° E",
-        description: "Технологичный мегаполис, где древние храмы соседствуют с неоновыми небоскрёбами.",
+        description: "Мегаполис, где синтоистские храмы и неоновые вывески живут на соседних улицах.",
         image: "https://images.pexels.com/photos/3092770/pexels-photo-3092770.jpeg?auto=compress&cs=tinysrgb&w=1200",
         flagX: 82,
         flagY: 45,
         facts: [
-          "Численность населения: свыше 37 миллионов человек в агломерации — это очень много людей и очень мало места.",
-          "Самое важное событие: превращение послевоенного города в одну из главных столиц мира.",
-          "Причина известности: киберпанк-эстетика, идеальное метро и культура, узнаваемая по всему миру.",
-          "Смешной факт: автоматы с напитками встречаются так часто, что иногда кажется, будто они следят за тобой."
+          "Численность населения: свыше 37 миллионов человек в агломерации.",
+          "Самое важное событие: послевоенное восстановление и превращение в один из главных городов планеты.",
+          "Причина известности: сочетание киберпанк-эстетики, технологий и строгой вежливости.",
+          "Смешной факт: автоматы с напитками появляются с такой частотой, что некоторые туристы начинают их считать."
         ]
       },
       {
         ip: "104.26.10.8",
         name: "Рейкьявик, Исландия",
         coords: "64.1466° N, 21.9426° W",
-        description: "Столица между вулканами и океаном, где горячая вода приходит из-под земли.",
+        description: "Столица на краю света, окружённая вулканами, океаном и паром от горячих источников.",
         image: "https://images.pexels.com/photos/3735162/pexels-photo-3735162.jpeg?auto=compress&cs=tinysrgb&w=1200",
         flagX: 40,
         flagY: 25,
         facts: [
-          "Численность населения: около 130 000 человек — почти весь мир знает этот город, хотя он размером с район.",
-          "Самое важное событие: развитие геотермальной энергетики, сделавшей страну почти полностью зелёной по электричеству.",
-          "Причина известности: северное сияние, гейзеры и чувство, что ты на другой планете.",
-          "Смешной факт: в плохую погоду местные просто говорят «нет плохой погоды, есть неправильная одежда» и идут купаться в горячих источниках."
+          "Численность населения: чуть более 130 000 человек.",
+          "Самое важное событие: переход на масштабную геотермальную энергетику — город греется силой недр.",
+          "Причина известности: северное сияние, гейзеры и пейзажи, похожие на другую планету.",
+          "Смешной факт: деревьев здесь мало, поэтому шутка «потерялся в лесу» звучит особенно забавно."
         ]
       },
       {
         ip: "172.217.20.46",
         name: "Сан-Франциско, США",
         coords: "37.7749° N, 122.4194° W",
-        description: "Город холмов, трамваев и моста, который даже в тумане узнают по очертаниям.",
+        description: "Город туманов, холмов, старых трамваев и легендарного моста через залив.",
         image: "https://images.pexels.com/photos/208745/pexels-photo-208745.jpeg?auto=compress&cs=tinysrgb&w=1200",
         flagX: 15,
         flagY: 52,
         facts: [
-          "Численность населения: около 800 000 человек в городе и миллионы в окрестностях.",
-          "Самое важное событие: золотая лихорадка и последующий взрывной рост города.",
-          "Причина известности: мост «Золотые ворота», холмы, трамваи и близость к Кремниевой долине.",
-          "Смешной факт: иногда туман настолько плотный, что туристы делают сотни фото моста, которого не видно."
+          "Численность населения: около 800 000 человек в городе и миллионы в агломерации.",
+          "Самое важное событие: золотая лихорадка, после которой город резко вырос и уже не остановился.",
+          "Причина известности: мост «Золотые ворота», крутые улицы и близость к Кремниевой долине.",
+          "Смешной факт: иногда туристы приезжают «посмотреть мост», а видят только туман — и всё равно счастливы."
         ]
       },
       {
         ip: "81.2.69.142",
         name: "Лондон, Великобритания",
         coords: "51.5074° N, 0.1278° W",
-        description: "Город, где можно за один день увидеть и вековые здания, и стеклянные башни финансового квартала.",
+        description: "Туманный мегаполис, где история, банковские кварталы и панки умудряются уживаться в одном городе.",
         image: "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&w=1200",
         flagX: 50,
         flagY: 40,
         facts: [
-          "Численность населения: более 9 миллионов человек в городе и ещё больше в агломерации.",
-          "Самое важное событие: роль столицы одной из крупнейших империй в истории.",
-          "Причина известности: Биг-Бен, Темза, красные автобусы и музеи на любой вкус.",
-          "Смешной факт: здесь можно пережить все четыре времени года за один день — зонт лучше носить всегда."
+          "Численность населения: более 9 миллионов человек.",
+          "Самое важное событие: вековой статус политического и финансового центра.",
+          "Причина известности: Биг-Бен, Темза, двухэтажные автобусы и бесконечные музеи.",
+          "Смешной факт: здесь можно пережить все четыре времени года за один день — погода любит эксперименты."
         ]
       },
       {
         ip: "45.33.32.156",
         name: "Сеул, Южная Корея",
         coords: "37.5665° N, 126.9780° E",
-        description: "Город, где дворцы и небоскрёбы образуют очень странный, но гармоничный микс.",
+        description: "Город-неон: дворцы эпохи Чосон и современные небоскрёбы освещены одинаково ярко.",
         image: "https://images.pexels.com/photos/237211/pexels-photo-237211.jpeg?auto=compress&cs=tinysrgb&w=1200",
         flagX: 85,
         flagY: 50,
         facts: [
           "Численность населения: около 10 миллионов человек в городе и более 25 миллионов в агломерации.",
-          "Самое важное событие: стремительная индустриализация и превращение страны в технологического гиганта.",
-          "Причина известности: к-поп, дорамы, уличная еда и ночные районы, светящиеся до утра.",
-          "Смешной факт: некоторые кафе и магазины открыты так долго, что понятие «рабочий день» там очень условно."
+          "Самое важное событие: стремительная индустриализация и превращение в цифровую столицу региона.",
+          "Причина известности: к-поп, дорамы, уличная еда и районы, которые не спят до утра.",
+          "Смешной факт: некоторые кафе открыты так долго, что сложно понять, где тут утро, а где вечер."
         ]
       },
       {
         ip: "91.198.174.192",
         name: "Амстердам, Нидерланды",
         coords: "52.3676° N, 4.9041° E",
-        description: "Город каналов, мостов и бесконечных велосипедов.",
+        description: "Город каналов, мостов и велосипедов, где вода почти так же важна, как дороги.",
         image: "https://images.pexels.com/photos/161249/canal-amsterdam-netherlands-bridge-161249.jpeg?auto=compress&cs=tinysrgb&w=1200",
         flagX: 55,
         flagY: 38,
@@ -763,172 +873,172 @@ index.html
           "Численность населения: около 900 000 человек в городе и более 2,5 миллионов в регионе.",
           "Самое важное событие: «золотой век» торговли, когда город стал одним из ключевых портов Европы.",
           "Причина известности: уютные каналы, тюльпаны и свободолюбивый характер.",
-          "Смешной факт: в городе официально зарегистрировано больше велосипедов, чем жителей."
+          "Смешной факт: велосипедов здесь официально больше, чем людей — это многое объясняет."
         ]
       },
       {
         ip: "151.101.1.69",
         name: "Нью-Йорк, США",
         coords: "40.7128° N, 74.0060° W",
-        description: "Город, который бесконечно снимают в фильмах, и который всё равно остаётся немного нереальным.",
+        description: "Город, который одновременно живёт в реальности и в сотне фильмов и сериалов.",
         image: "https://images.pexels.com/photos/3787839/pexels-photo-3787839.jpeg?auto=compress&cs=tinysrgb&w=1200",
         flagX: 22,
         flagY: 48,
         facts: [
           "Численность населения: более 8,5 миллионов человек в городе и свыше 19 миллионов в агломерации.",
-          "Самое важное событие: превращение из порта иммигрантов в столицу финансов, искусства и медиа.",
-          "Причина известности: Таймс-сквер, Бродвей, Центральный парк и бесконечные сериалы про этот город.",
-          "Смешной факт: многие туристы чувствуют лёгкое дежавю — почти каждая улица напоминает кадр из кино."
+          "Самое важное событие: превращение из порта иммигрантов в финансовую и медиа-столицу мира.",
+          "Причина известности: Таймс-сквер, Бродвей, Центральный парк и ощущение фильма даже в обычном дворе.",
+          "Смешной факт: многие впервые приезжают сюда с ощущением, что уже всё знают — а город всё равно удивляет."
         ]
       },
       {
         ip: "23.211.138.80",
         name: "Париж, Франция",
         coords: "48.8566° N, 2.3522° E",
-        description: "Город, где даже обычный перекус может превратиться в маленький гастрономический праздник.",
+        description: "Город, где даже обычное утро с круассаном кажется немного кинематографичным.",
         image: "https://images.pexels.com/photos/338515/pexels-photo-338515.jpeg?auto=compress&cs=tinysrgb&w=1200",
         flagX: 54,
         flagY: 42,
         facts: [
           "Численность населения: около 2,1 миллиона человек в городе и свыше 10 миллионов в агломерации.",
-          "Самое важное событие: становление Парижа как культурной и художественной столицы Европы.",
-          "Причина известности: Эйфелева башня, Лувр, атмосфера старых улочек и моды.",
-          "Смешной факт: местные могут спокойно сидеть с кофе на террасе часами — и это считается делом."
+          "Самое важное событие: превращение в культурную и художественную столицу Европы.",
+          "Причина известности: Эйфелева башня, Лувр, мода и бесконечные фильмы про любовь.",
+          "Смешной факт: местные могут часами сидеть с чашкой кофе — и это считается продуктивным временем."
         ]
       },
       {
         ip: "210.140.92.0",
         name: "Токио (Сибуя), Япония",
         coords: "35.6595° N, 139.7005° E",
-        description: "Район с одной из самых оживлённых пешеходных переправ в мире.",
+        description: "Район с одной из самых загруженных пешеходных переправ в мире.",
         image: "https://images.pexels.com/photos/240040/pexels-photo-240040.jpeg?auto=compress&cs=tinysrgb&w=1200",
         flagX: 83,
         flagY: 46,
         facts: [
-          "Численность населения района: сотни тысяч людей, а поток прохожих на одном перекрёстке — легендарен.",
-          "Самое важное событие: превращение переправы в символ современного мегаполиса.",
-          "Причина известности: бесконечные неоновые вывески и плотный человеческий поток.",
-          "Смешной факт: многие туристы специально ждут зелёный сигнал, чтобы пройти перекрёсток просто «как в кино»."
+          "Численность населения района: сотни тысяч жителей и нескончаемый поток людей.",
+          "Самое важное событие: превращение обычного перекрёстка в символ городского движения.",
+          "Причина известности: неоновые экраны, реклама и плотный человеческий поток в такт светофору.",
+          "Смешной факт: многие туристы переходят этот перекрёсток несколько раз подряд только ради ощущения «как в аниме»."
         ]
       },
       {
         ip: "203.0.113.42",
         name: "Берлин, Германия",
         coords: "52.5200° N, 13.4050° E",
-        description: "Столица с характером: немного хаоса, много истории и очень много уличного искусства.",
+        description: "Столица с сильным характером, уличным искусством и клубной сценой мирового уровня.",
         image: "https://images.pexels.com/photos/462867/pexels-photo-462867.jpeg?auto=compress&cs=tinysrgb&w=1200",
         flagX: 56,
         flagY: 37,
         facts: [
           "Численность населения: около 3,8 миллиона человек.",
           "Самое важное событие: падение Берлинской стены и воссоединение города.",
-          "Причина известности: клубы, альтернативная культура и граффити на каждом углу.",
-          "Смешной факт: иногда кажется, что здесь все умеют диджеить или хотя бы собирать винил."
+          "Причина известности: альтернативная культура, граффити и техно-клубы.",
+          "Смешной факт: здесь есть клубы, где очередь на вход — это почти отдельное социальное событие."
         ]
       },
       {
         ip: "198.51.100.23",
         name: "Москва, Россия",
         coords: "55.7558° N, 37.6173° E",
-        description: "Мегаполис, где исторический центр соседствует с высотками и гигантскими развязками.",
+        description: "Мегаполис, где древние стены Кремля соседствуют с стеклянными бизнес-центрами.",
         image: "https://images.pexels.com/photos/4606728/pexels-photo-4606728.jpeg?auto=compress&cs=tinysrgb&w=1200",
         flagX: 63,
         flagY: 32,
         facts: [
           "Численность населения: более 12 миллионов человек.",
-          "Самое важное событие: многовековая роль столицы огромной страны.",
-          "Причина известности: Красная площадь, метро и вечные пробки.",
-          "Смешной факт: подземные станции настолько красивые, что на них реально проводят экскурсии."
+          "Самое важное событие: многовековой статус столицы огромной страны.",
+          "Причина известности: Красная площадь, метро, пробки и скорость жизни.",
+          "Смешной факт: некоторые станции метро выглядят как дворцы, и по ним реально водят экскурсии."
         ]
       },
       {
         ip: "192.0.2.77",
         name: "Стамбул, Турция",
         coords: "41.0082° N, 28.9784° E",
-        description: "Город на двух континентах, где Европа встречается с Азией.",
+        description: "Город на стыке Европы и Азии, где запах специй смешивается с морским воздухом.",
         image: "https://images.pexels.com/photos/210657/pexels-photo-210657.jpeg?auto=compress&cs=tinysrgb&w=1200",
         flagX: 62,
         flagY: 45,
         facts: [
           "Численность населения: более 15 миллионов человек.",
-          "Самое важное событие: многовековая история как столицы разных империй.",
+          "Самое важное событие: роль столицы великих империй и перекрёстка торговых путей.",
           "Причина известности: Босфор, мечети, рынки и чай в тонких стаканчиках.",
-          "Смешной факт: иногда здесь можно услышать одновременно звуки молитвы, крики чаек и гудки кораблей."
+          "Смешной факт: иногда здесь одновременно слышно крики чаек, гудки кораблей и зов на молитву — и всё это один саундтрек."
         ]
       },
       {
         ip: "203.0.113.99",
         name: "Буэнос-Айрес, Аргентина",
         coords: "34.6037° S, 58.3816° W",
-        description: "Южноамериканский мегаполис с европейским настроением и танго в воздухе.",
+        description: "Южноамериканский город с европейским настроением и танго прямо на улицах.",
         image: "https://images.pexels.com/photos/2400400/pexels-photo-2400400.jpeg?auto=compress&cs=tinysrgb&w=1200",
         flagX: 34,
         flagY: 78,
         facts: [
           "Численность населения: около 3 миллионов человек в городе и более 13 миллионов в агломерации.",
-          "Самое важное событие: становление города как крупного порта и культурного центра региона.",
-          "Причина известности: танго, футбол и архитектура в европейском стиле.",
-          "Смешной факт: здесь могут обсуждать футбол так же серьёзно, как где-то обсуждают политику."
+          "Самое важное событие: становление как крупного порта и культурного центра региона.",
+          "Причина известности: танго, футбол и вечерние прогулки по широким проспектам.",
+          "Смешной факт: фанаты футбола здесь переживают матчи так, словно от счёта зависит погода."
         ]
       },
       {
         ip: "198.51.100.144",
         name: "Каир, Египет",
         coords: "30.0444° N, 31.2357° E",
-        description: "Город рядом с пирамидами, которые пережили всё: империи, войны и бесконечные экскурсии.",
+        description: "Город рядом с пирамидами, которые спокойно пережили все исторические перипетии.",
         image: "https://images.pexels.com/photos/2400401/pexels-photo-2400401.jpeg?auto=compress&cs=tinysrgb&w=1200",
         flagX: 60,
         flagY: 55,
         facts: [
           "Численность населения: более 9 миллионов человек в городе и сильно больше в агломерации.",
-          "Самое важное событие: многотысячелетняя история цивилизации вдоль Нила.",
-          "Причина известности: пирамиды, Сфинкс и музей с невероятным количеством артефактов.",
-          "Смешной факт: многие местные могут проехать мимо пирамид как мимо обычного здания по пути на работу."
+          "Самое важное событие: многотысячелетняя цивилизация, развивавшаяся вдоль Нила.",
+          "Причина известности: пирамиды, Сфинкс и бесконечные археологические истории.",
+          "Смешной факт: для местных пирамиды — почти привычный фон, как кому-то — остановка метро."
         ]
       },
       {
         ip: "192.0.2.155",
         name: "Рио-де-Жанейро, Бразилия",
         coords: "22.9068° S, 43.1729° W",
-        description: "Город праздника, моря и гор, где городская застройка упирается в джунгли.",
+        description: "Город между океаном и горами, где карнавал — не просто праздник, а часть идентичности.",
         image: "https://images.pexels.com/photos/1761279/pexels-photo-1761279.jpeg?auto=compress&cs=tinysrgb&w=1200",
         flagX: 30,
         flagY: 75,
         facts: [
           "Численность населения: около 6,7 миллиона человек.",
-          "Самое важное событие: карнавал, ставший символом города на весь мир.",
-          "Причина известности: статуя Христа-Искупителя, пляжи и пейзажи с холмами.",
-          "Смешной факт: здесь можно увидеть человека с серфом в метро — и никто не удивится."
+          "Самое важное событие: легендарные карнавалы, покорившие мир.",
+          "Причина известности: статуя Христа-Искупителя, пляжи и музыка.",
+          "Смешной факт: увидеть человека с серфом в общественном транспорте — абсолютно нормальная ситуация."
         ]
       },
       {
         ip: "203.0.113.200",
         name: "Сингапур",
         coords: "1.3521° N, 103.8198° E",
-        description: "Город-государство, где всё очень компактно, очень чисто и очень технологично.",
+        description: "Компактный город-государство, где технологии и порядок встречаются на каждом шагу.",
         image: "https://images.pexels.com/photos/2187605/pexels-photo-2187605.jpeg?auto=compress&cs=tinysrgb&w=1200",
         flagX: 88,
         flagY: 63,
         facts: [
           "Численность населения: около 5,7 миллиона человек.",
-          "Самое важное событие: превращение из портового города в глобальный финансовый центр.",
-          "Причина известности: небоскрёбы, сады у залива и строгие правила.",
-          "Смешной факт: жевательная резинка здесь почти под запретом — зато метро очень чистое."
+          "Самое важное событие: стремительное превращение порта в глобальный финансовый центр.",
+          "Причина известности: футуристические сады, небоскрёбы и очень строгие правила.",
+          "Смешной факт: жвачку здесь не очень любят, зато метро и улицы выглядят как после уборки фотостудии."
         ]
       },
       {
         ip: "198.51.100.222",
         name: "Кейптаун, ЮАР",
         coords: "33.9249° S, 18.4241° E",
-        description: "Город у подножия Столовой горы, где океан и скалы создают очень кинематографичный фон.",
+        description: "Город у подножия Столовой горы с сумасшедшими по красоте видами на океан.",
         image: "https://images.pexels.com/photos/4606729/pexels-photo-4606729.jpeg?auto=compress&cs=tinysrgb&w=1200",
         flagX: 52,
         flagY: 82,
         facts: [
           "Численность населения: около 4,6 миллиона человек в агломерации.",
-          "Самое важное событие: роль в истории Южной Африки как крупного порта и политического центра.",
-          "Причина известности: Столовая гора, океан и винные долины неподалёку.",
-          "Смешной факт: местная погода может сменить три настроения за один день — зонт и солнцезащитный крем дружат."
+          "Самое важное событие: развитие города как важного порта и культурного центра региона.",
+          "Причина известности: гора, океан и маршруты, где можно увидеть сразу все оттенки синего.",
+          "Смешной факт: местная погода может устроить за день мини-сериал из нескольких сезонов."
         ]
       }
     ];
@@ -960,7 +1070,7 @@ index.html
       if (jumpHistory.length === 0) {
         const li = document.createElement("li");
         li.className = "history-empty";
-        li.textContent = "Пока нет прыжков. Нажми кнопку, чтобы оставить первый след на глобусе.";
+        li.textContent = "Пока нет прыжков. Нажми кнопку, чтобы глобус впервые поймал флажок.";
         historyListEl.appendChild(li);
         return;
       }
@@ -1020,7 +1130,7 @@ index.html
       placeFlag(location.flagX || 50, location.flagY || 50);
 
       jumpHistory.unshift({ ip: location.ip, name: location.name });
-      if (jumpHistory.length > 8) jumpHistory.pop();
+      if (jumpHistory.length > 10) jumpHistory.pop();
       renderHistory();
 
       resultSectionEl.scrollIntoView({ behavior: "smooth", block: "center" });
